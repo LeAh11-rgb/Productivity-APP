@@ -1,0 +1,107 @@
+@base = http://127.0.0.1:5000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3NjQzOTY3MiwianRpIjoiZDk4MTdkODQtYjljZC00YjFhLTg4NjYtOWJjMmEyNTFhNzI5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NzY0Mzk2NzIsImNzcmYiOiI2OTBhMDU2NS1iZWVhLTQzZWYtOTVhYy02ODI5NjM2N2M0YTMiLCJleHAiOjE3NzY1MjYwNzJ9.ynkKjJMAO9XjPBPYp53QmoaxA9JgAqG8qgn1hL0FEbs
+
+GET {{base}}/health
+
+### ── Signup ────────────────────────────────────────────────────
+POST {{base}}/auth/signup
+Content-Type: application/json
+
+{
+    "email": "yayy@gmail.com",
+    "username": "YayUser",
+    "password": "password@$23."
+}
+
+
+### ── Login ─────────────────────────────────────────────────────
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "yayy@gmail.com",
+    "password": "password@$23."
+}
+
+
+### ── Get Current User ──────────────────────────────────────────
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+
+### ── Get Categories ────────────────────────────────────────────
+GET {{base}}/categories
+Authorization: Bearer {{token}}
+
+
+### ── Create Category ───────────────────────────────────────────
+POST {{base}}/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Side Projects",
+    "color": "#8b5cf6"
+}
+
+
+### ── Create Task ───────────────────────────────────────────────
+POST {{base}}/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Build the frontend UI",
+    "description": "HTML, CSS and JavaScript for the app shell",
+    "due_date": "2026-04-20",
+    "due_time": "09:00",
+    "priority": "high",
+    "category_id": 1
+}
+
+
+### ── Get All Tasks ─────────────────────────────────────────────
+GET {{base}}/tasks
+Authorization: Bearer {{token}}
+
+
+### ── Get Tasks for Today ────────────────────────────────────────
+GET {{base}}/tasks?date=2026-04-17
+Authorization: Bearer {{token}}
+
+
+### ── Toggle Task Complete (change 1 to your task's ID) ─────────
+PATCH {{base}}/tasks/1/toggle
+Authorization: Bearer {{token}}
+
+
+### ── Update Task ───────────────────────────────────────────────
+PUT {{base}}/tasks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Build the frontend UI (updated)",
+    "priority": "medium"
+}
+
+
+### ── Analytics Summary ─────────────────────────────────────────
+GET {{base}}/analytics/summary
+Authorization: Bearer {{token}}
+
+
+### ── Analytics History (last 7 days) ──────────────────────────
+GET {{base}}/analytics/history?days=7
+Authorization: Bearer {{token}}
+
+
+### ── Delete Task ───────────────────────────────────────────────
+DELETE {{base}}/tasks/1
+Authorization: Bearer {{token}}
+
+
+### ── Logout ────────────────────────────────────────────────────
+POST {{base}}/auth/logout
+Authorization: Bearer {{token}}
+
